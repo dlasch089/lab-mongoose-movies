@@ -19,17 +19,14 @@ router.get("/", function(req, res, next) {
   });
 });
 
-router.get("/:id";, function(req, res, next) {
-  Celebrity.findById({_id: String}, (err, result) => {
+router.get("/:id", function(req, res, next) {
+  const celebrityId = req.query.id;
+  Celebrity.findById(celebrityId, (err, celebrity) => {
     if (err) {
       console.log(err);
       next(err);
     } else {
-      const data = {
-        celebrity: result
-      };
-      res.render("celebrities/show", data);
-      // res.send("respond something");
+      res.render("celebrities/show", { celebrity: celebrity });
     }
   });
 });
